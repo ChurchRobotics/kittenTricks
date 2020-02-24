@@ -1,5 +1,5 @@
 import { AppRegistry, Platform } from 'react-native';
-import App from './src/app/app.component';
+import App from './App';
 
 AppRegistry.registerComponent('KittenTricks', () => App);
 
