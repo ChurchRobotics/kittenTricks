@@ -11,6 +11,10 @@ import { SplashImage } from '../components/splash-image.component';
 import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
+import { enableScreens } from 'react-native-screens';
+
+// Enable native screens
+enableScreens();
 
 const loadingTasks: Task[] = [
   // Should be used it when running Expo.
