@@ -1,19 +1,19 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen } from '../scenes/home/home.component';
 import { AddNewCardScreen } from '../scenes/ecommerce/add-new-card.component';
 import { ProductDetails1Screen } from '../scenes/ecommerce/product-details-1.component';
 import { ProductDetails2Screen } from '../scenes/ecommerce/product-details-2.component';
 import { ProductDetails3Screen } from '../scenes/ecommerce/product-details-3.component';
 import { ProductDetails4Screen } from '../scenes/ecommerce/product-details-4.component';
 import { PaymentScreen } from '../scenes/ecommerce/payment.component';
+import { ProductListScreen } from '../scenes/ecommerce/product-list.component';
 import { ShoppingCartScreen } from '../scenes/ecommerce/shopping-cart.component';
 
 const Stack = createStackNavigator();
 
-export const HomeNavigator = (): React.ReactElement => (
+export const CatalogNavigator = (): React.ReactElement => (
   <Stack.Navigator headerMode='none'>
-    <Stack.Screen name='Home' component={HomeScreen}/>
+    <Stack.Screen name='Catalog' component={ProductListScreen}/>
     <Stack.Screen name='AddNewCard' component={AddNewCardScreen}/>
     <Stack.Screen name='ProductDetails1' component={ProductDetails1Screen}/>
     <Stack.Screen name='ProductDetails2' component={ProductDetails2Screen}/>

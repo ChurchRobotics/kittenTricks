@@ -1,10 +1,11 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { BottomNavigationTab, Divider } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
 import { BrandBottomNavigation } from '../../components/brand-bottom-navigation.component';
-import { ColorPaletteIcon, LayoutIcon, StarOutlineIcon } from '../../components/icons';
+import { HomeIcon, ListIcon, InboxIcon, MessageCircleIcon, PersonIcon } from '../../components/icons';
 
-export const HomeBottomNavigation = (props): React.ReactElement => {
+export const AppBottomNavigation = (props): React.ReactElement => {
 
   const onSelect = (index: number): void => {
     props.navigation.navigate(props.state.routeNames[index]);
@@ -18,18 +19,28 @@ export const HomeBottomNavigation = (props): React.ReactElement => {
         selectedIndex={props.state.index}
         onSelect={onSelect}>
         <BottomNavigationTab
-          title='Layouts'
-          icon={LayoutIcon}
+          icon={HomeIcon}
         />
         <BottomNavigationTab
-          title='Components'
-          icon={StarOutlineIcon}
+          icon={ListIcon}
         />
         <BottomNavigationTab
-          title='Themes'
-          icon={ColorPaletteIcon}
+          icon={(style) => InboxIcon({...style, ...styles.booksIcon})}
+        />
+        <BottomNavigationTab
+          icon={MessageCircleIcon}
+        />
+        <BottomNavigationTab
+          icon={PersonIcon}
         />
       </BrandBottomNavigation>
     </SafeAreaLayout>
   );
 };
+
+const styles = StyleSheet.create({
+  booksIcon: {
+    width: 30,
+    height: 30,
+  },
+});

@@ -24,7 +24,7 @@ const DATA: MenuItemType[] = [
 
 const version: string = AppInfoService.getVersion();
 
-export const HomeDrawer = ({ navigation }): DrawerElement => {
+export const AppDrawer = ({ navigation }): DrawerElement => {
 
   const onItemSelect = (index: number): void => {
     switch (index) {

@@ -22,6 +22,10 @@ export const BookmarkOutlineIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name='bookmark-outline'/>
 );
 
+export const CameraIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name='camera-outline'/>
+);
+
 export const ColorPaletteIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name='color-palette-outline'/>
 );
@@ -38,6 +42,14 @@ export const GridIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name='grid-outline'/>
 );
 
+export const HomeIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name='home-outline'/>
+);
+
+export const InboxIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name='inbox-outline'/>
+);
+
 export const LayoutIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name='layout-outline'/>
 );
@@ -50,8 +62,16 @@ export const MenuIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name='menu'/>
 );
 
+export const MessageCircleIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name='message-circle-outline'/>
+);
+
 export const MoreVerticalIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name='more-vertical'/>
+);
+
+export const PersonIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name='person-outline'/>
 );
 
 export const SearchIcon = (style: ImageStyle): IconElement => (
@@ -321,4 +341,3 @@ export const AssetTopNavigationIcon = (style: ImageStyle): IconElement => (
 export const AssetTopNavigationDarkIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} pack='app' name='top-navigation-dark'/>
 );
-

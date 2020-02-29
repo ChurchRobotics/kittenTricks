@@ -3,9 +3,9 @@ import { StyleSheet } from 'react-native';
 import { TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
 import { ArrowIosBackIcon } from '../../components/icons';
-import ContentView from '../../layouts/ecommerce/product-list';
+import ContentView from '../../layouts/home/home';
 
-export const ProductListScreen = ({ navigation }): React.ReactElement => {
+export const HomeScreen = ({ navigation }): React.ReactElement => {
 
   const renderBackAction = (): React.ReactElement => (
     <TopNavigationAction
@@ -19,10 +19,10 @@ export const ProductListScreen = ({ navigation }): React.ReactElement => {
       style={styles.container}
       insets='top'>
       <TopNavigation
-        title='Catalog'
+        title='Home'
         leftControl={renderBackAction()}
       />
-      <ContentView/>
+      <ContentView navigation={navigation}/>
     </SafeAreaLayout>
   );
 };

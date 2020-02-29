@@ -2,15 +2,15 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
-import { ArrowIosBackIcon } from '../../components/icons';
-import ContentView from '../../layouts/ecommerce/product-list';
+import { MenuIcon } from '../../components/icons';
+import ContentView from '../../layouts/social/profile-6';
 
-export const ProductListScreen = ({ navigation }): React.ReactElement => {
+export const MeScreen = ({ navigation }): React.ReactElement => {
 
-  const renderBackAction = (): React.ReactElement => (
+  const renderDrawerAction = (): React.ReactElement => (
     <TopNavigationAction
-      icon={ArrowIosBackIcon}
-      onPress={navigation.goBack}
+      icon={MenuIcon}
+      onPress={navigation.toggleDrawer}
     />
   );
 
@@ -19,12 +19,12 @@ export const ProductListScreen = ({ navigation }): React.ReactElement => {
       style={styles.container}
       insets='top'>
       <TopNavigation
-        title='Catalog'
-        leftControl={renderBackAction()}
+        title='Me'
+        leftControl={renderDrawerAction()}
       />
-      <ContentView/>
+      <ContentView navigation={navigation}/>
     </SafeAreaLayout>
-  );
+  )
 };
 
 const styles = StyleSheet.create({

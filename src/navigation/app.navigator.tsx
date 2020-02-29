@@ -1,6 +1,70 @@
 import React from 'react';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/core';
+import {
+  BottomTabNavigationOptions,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { HomeNavigator } from './home.navigator';
+import { CatalogNavigator } from './catalog.navigator'
+import { BookingNavigator } from './booking.navigator';
+import { MessagingNavigator } from './messaging.navigator';
+import { MeNavigator } from './me.navigator';
+import { AppBottomNavigation } from '../scenes/app/app-bottom-navigation.component';
+import { AppDrawer } from '../scenes/app/app-drawer.component';
+import { LibrariesScreen } from '../scenes/libraries/libraries.component';
+
+const BottomTab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+
+/*
+ * When dev is true in .expo/settings.json (started via `start:dev`),
+ * open Record tab as default.
+ */
+const initialTabRoute: string = __DEV__ ? 'Books' : 'Home';
+
+/*
+ * Can we access it from `AppNavigator`?
+ */
+const ROOT_ROUTES: string[] = ['Home', 'Catalog', 'Booking', 'Messaging', 'Me'];
+
+const isOneOfRootRoutes = (currentRoute: RouteProp<any, any>): boolean => {
+  return ROOT_ROUTES.indexOf(currentRoute.name) !== -1;
+};
+
+const TabBarVisibleOnRootScreenOptions = ({ route }): BottomTabNavigationOptions => {
+  const currentRoute = route.state && route.state.routes[route.state.index];
+  return { tabBarVisible: currentRoute && isOneOfRootRoutes(currentRoute) };
+};
+
+const AppTabsNavigator = (): React.ReactElement => (
+  <BottomTab.Navigator
+    screenOptions={TabBarVisibleOnRootScreenOptions}
+    initialRouteName={initialTabRoute}
+    tabBar={props => <AppBottomNavigation {...props} />}>
+    <BottomTab.Screen name='Home' component={HomeNavigator}/>
+    <BottomTab.Screen name='Catalog' component={CatalogNavigator}/>
+    <BottomTab.Screen name='Booking' component={BookingNavigator}/>
+    <BottomTab.Screen name='Messaging' component={MessagingNavigator}/>
+    <BottomTab.Screen name='Me' component={MeNavigator}/>
+  </BottomTab.Navigator>
+);
+
+const AppDrawerNavigator = (): React.ReactElement => (
+  <Drawer.Navigator
+    screenOptions={{ gestureEnabled: false }}
+    drawerContent={props => <AppDrawer {...props}/>}>
+    <Drawer.Screen name='Main' component={AppTabsNavigator}/>
+    <Drawer.Screen name='Libraries' component={LibrariesScreen}/>
+  </Drawer.Navigator>
+);
+
+export const AppNavigator = (): React.ReactElement => (
+  <NavigationContainer theme={navigatorTheme}>
+    <AppDrawerNavigator/>
+  </NavigationContainer>
+);
 
 /*
  * Navigation theming: https://reactnavigation.org/docs/en/next/themes.html
@@ -13,9 +77,3 @@ const navigatorTheme = {
     background: 'transparent',
   },
 };
-
-export const AppNavigator = (): React.ReactElement => (
-  <NavigationContainer theme={navigatorTheme}>
-    <HomeNavigator/>
-  </NavigationContainer>
-);
