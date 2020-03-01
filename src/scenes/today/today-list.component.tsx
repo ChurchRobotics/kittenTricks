@@ -2,16 +2,10 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
-import { ArrowIosBackIcon, BookmarkIcon, BookmarkOutlineIcon } from '../../components/icons';
-import ContentView from '../../layouts/ecommerce/product-details-2';
+import { ArrowIosBackIcon } from '../../components/icons';
+import ContentView from '../../layouts/today/today-list';
 
-export const BookingScreen = ({ navigation }): React.ReactElement => {
-
-  const [bookmarked, setBookmarked] = React.useState<boolean>(false);
-
-  const onBookmarkActionPress = (): void => {
-    setBookmarked(!bookmarked);
-  };
+export const TodayListScreen = ({ navigation }): React.ReactElement => {
 
   const renderBackAction = (): React.ReactElement => (
     <TopNavigationAction
@@ -20,21 +14,13 @@ export const BookingScreen = ({ navigation }): React.ReactElement => {
     />
   );
 
-  const renderBookmarkAction = (): React.ReactElement => (
-    <TopNavigationAction
-      icon={bookmarked ? BookmarkIcon : BookmarkOutlineIcon}
-      onPress={onBookmarkActionPress}
-    />
-  );
-
   return (
     <SafeAreaLayout
       style={styles.container}
       insets='top'>
       <TopNavigation
-        title='Booking'
+        title='Today'
         leftControl={renderBackAction()}
-        rightControls={[renderBookmarkAction()]}
       />
       <ContentView navigation={navigation}/>
     </SafeAreaLayout>

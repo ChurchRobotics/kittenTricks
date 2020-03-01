@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen } from '../scenes/home/home.component';
+import { HomepageScreen } from '../scenes/home/homepage.component';
 import { AddNewCardScreen } from '../scenes/ecommerce/add-new-card.component';
 import { ProductDetails1Screen } from '../scenes/ecommerce/product-details-1.component';
 import { ProductDetails2Screen } from '../scenes/ecommerce/product-details-2.component';
@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 export const HomeNavigator = (): React.ReactElement => (
   <Stack.Navigator headerMode='none'>
-    <Stack.Screen name='Home' component={HomeScreen}/>
+    <Stack.Screen name='Home' component={HomepageScreen}/>
     <Stack.Screen name='AddNewCard' component={AddNewCardScreen}/>
     <Stack.Screen name='ProductDetails1' component={ProductDetails1Screen}/>
     <Stack.Screen name='ProductDetails2' component={ProductDetails2Screen}/>

@@ -7,8 +7,8 @@ import {
 } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { HomeNavigator } from './home.navigator';
-import { CatalogNavigator } from './catalog.navigator'
-import { BookingNavigator } from './booking.navigator';
+import { TodayNavigator } from './today.navigator'
+import { BooksNavigator } from './books.navigator';
 import { MessagingNavigator } from './messaging.navigator';
 import { MeNavigator } from './me.navigator';
 import { AppBottomNavigation } from '../scenes/app/app-bottom-navigation.component';
@@ -25,9 +25,9 @@ const Drawer = createDrawerNavigator();
 const initialTabRoute: string = __DEV__ ? 'Books' : 'Home';
 
 /*
- * Can we access it from `AppNavigator`?
+ * Can we access it from `AppTabsNavigator`?
  */
-const ROOT_ROUTES: string[] = ['Home', 'Catalog', 'Booking', 'Messaging', 'Me'];
+const ROOT_ROUTES: string[] = ['Home', 'Today', 'Books', 'Messaging', 'Me'];
 
 const isOneOfRootRoutes = (currentRoute: RouteProp<any, any>): boolean => {
   return ROOT_ROUTES.indexOf(currentRoute.name) !== -1;
@@ -44,8 +44,8 @@ const AppTabsNavigator = (): React.ReactElement => (
     initialRouteName={initialTabRoute}
     tabBar={props => <AppBottomNavigation {...props} />}>
     <BottomTab.Screen name='Home' component={HomeNavigator}/>
-    <BottomTab.Screen name='Catalog' component={CatalogNavigator}/>
-    <BottomTab.Screen name='Booking' component={BookingNavigator}/>
+    <BottomTab.Screen name='Today' component={TodayNavigator}/>
+    <BottomTab.Screen name='Books' component={BooksNavigator}/>
     <BottomTab.Screen name='Messaging' component={MessagingNavigator}/>
     <BottomTab.Screen name='Me' component={MeNavigator}/>
   </BottomTab.Navigator>

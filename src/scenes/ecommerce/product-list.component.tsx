@@ -19,7 +19,7 @@ export const ProductListScreen = ({ navigation }): React.ReactElement => {
       style={styles.container}
       insets='top'>
       <TopNavigation
-        title='Catalog'
+        title='Product List'
         leftControl={renderBackAction()}
       />
       <ContentView/>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { BookingScreen } from '../scenes/booking/booking.component';
+import { BookListScreen } from '../scenes/books/book-list.component';
 import { AddNewCardScreen } from '../scenes/ecommerce/add-new-card.component';
 import { ProductDetails1Screen } from '../scenes/ecommerce/product-details-1.component';
 import { ProductDetails2Screen } from '../scenes/ecommerce/product-details-2.component';
@@ -11,9 +11,9 @@ import { ShoppingCartScreen } from '../scenes/ecommerce/shopping-cart.component'
 
 const Stack = createStackNavigator();
 
-export const BookingNavigator = (): React.ReactElement => (
+export const BooksNavigator = (): React.ReactElement => (
   <Stack.Navigator headerMode='none'>
-    <Stack.Screen name='Booking' component={BookingScreen}/>
+    <Stack.Screen name='Books' component={BookListScreen}/>
     <Stack.Screen name='AddNewCard' component={AddNewCardScreen}/>
     <Stack.Screen name='ProductDetails1' component={ProductDetails1Screen}/>
     <Stack.Screen name='ProductDetails2' component={ProductDetails2Screen}/>

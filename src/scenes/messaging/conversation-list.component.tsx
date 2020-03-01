@@ -19,7 +19,7 @@ export const ConversationListScreen = ({ navigation }): React.ReactElement => {
       style={styles.container}
       insets='top'>
       <TopNavigation
-        title='Messaging'
+        title='Message'
         leftControl={renderBackAction()}
       />
       <Divider/>

@@ -82,6 +82,10 @@ export const SettingsIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name='settings'/>
 );
 
+export const SmartphoneOutlineIcon = (style: ImageStyle): IconElement => (
+  <Icon {...style} name='smartphone-outline'/>
+);
+
 export const StarIcon = (style: ImageStyle): IconElement => (
   <Icon {...style} name='star'/>
 );
