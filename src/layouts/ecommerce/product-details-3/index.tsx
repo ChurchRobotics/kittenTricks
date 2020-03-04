@@ -12,26 +12,150 @@ import {
 } from '@ui-kitten/components';
 import { KeyboardAvoidingView } from './extra/keyboard-avoiding-view.component';
 import { CommentList } from './extra/comment-list.component';
-import { Product, ProductColor } from './extra/data';
+import { Product, ProductColor, Comment } from './extra/data';
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
-const product: Product = Product.pinkChair();
+import { GET_CART_ITEMS } from '../../../scenes/ecommerce/shopping-cart.component';
+
+const LAUNCH_TILE_DATA = gql`
+  fragment LaunchTile on Launch {
+    __typename
+    id
+    isBooked
+    rocket {
+      id
+      name
+    }
+    mission {
+      name
+      missionPatch
+    }
+  }
+`;
+
+const GET_LAUNCH_DETAILS = gql`
+  query LaunchDetails($launchId: ID!) {
+    launch(id: $launchId) {
+      isInCart @client
+      site
+      rocket {
+        type
+      }
+      ...LaunchTile
+    }
+  }
+  ${LAUNCH_TILE_DATA}
+`;
+
+export const TOGGLE_CART = gql`
+  mutation addOrRemoveFromCart($launchId: ID!) {
+    addOrRemoveFromCart(id: $launchId) @client
+  }
+`;
+
+export const CANCEL_TRIP = gql`
+  mutation cancel($launchId: ID!) {
+    cancelTrip(launchId: $launchId) {
+      success
+      message
+      launches {
+        id
+        isBooked
+      }
+    }
+  }
+`;
+
+export interface LaunchDetails_launch_rocket {
+  __typename: "Rocket";
+  type: string | null;
+  id: string;
+  name: string | null;
+}
+
+export interface LaunchDetails_launch_mission {
+  __typename: "Mission";
+  name: string | null;
+  missionPatch: string | null;
+}
+
+export interface LaunchDetails_launch {
+  __typename: "Launch";
+  isInCart: boolean;
+  site: string | null;
+  rocket: LaunchDetails_launch_rocket | null;
+  id: string;
+  isBooked: boolean;
+  mission: LaunchDetails_launch_mission | null;
+}
 
 const keyboardOffset = (height: number): number => Platform.select({
   android: 0,
   ios: height,
 });
 
-export default ({ navigation }): React.ReactElement => {
+export default ({ navigation, launch }): React.ReactElement => {
 
   const [comment, setComment] = React.useState<string>();
   const [selectedColorIndex, setSelectedColorIndex] = React.useState<number>();
   const styles = useStyleSheet(themedStyles);
+
+  const [buyMutate, { loading: buyLoading, error: buyError }] = useMutation(
+    TOGGLE_CART,
+    {
+      variables: { launchId: launch.id },
+      refetchQueries: [
+        {
+          query: GET_LAUNCH_DETAILS,
+          variables: { launchId: launch.id },
+        },
+      ]
+    }
+  );
+
+  const [cartMutate, { loading: cartLoading, error: cartError }] = useMutation(
+    TOGGLE_CART,
+    {
+      variables: { launchId: launch.id },
+      refetchQueries: [
+        {
+          query: GET_LAUNCH_DETAILS,
+          variables: { launchId: launch.id },
+        },
+        {
+          query: GET_CART_ITEMS,
+        }
+      ]
+    }
+  );
+
+  if (buyLoading || cartLoading) return <Text>Loading...</Text>;
+  if (buyError || cartError) return <Text>An error occurred</Text>;
+
+  const product: Product = new Product(
+    launch.mission.name,
+    launch.site,
+    launch.site,
+    launch.id,
+    { uri: launch.mission.missionPatch },
+    'H:80cm W:50cm D:40cm',
+    [
+      ProductColor.gray(),
+      ProductColor.pink(),
+      ProductColor.orange(),
+    ],
+    [
+      Comment.byHubertFranck(),
+    ],
+  );
 
   const onBuyButtonPress = (): void => {
     navigation && navigation.navigate('Payment');
   };
 
   const onAddButtonPress = (): void => {
+    cartMutate();
     navigation && navigation.navigate('ShoppingCart');
   };
 
@@ -106,7 +230,7 @@ export default ({ navigation }): React.ReactElement => {
             size='giant'
             status='control'
             onPress={onAddButtonPress}>
-            ADD TO BAG
+            {launch.isInCart ? 'REMOVE' : 'ADD TO BAG'}
           </Button>
         </View>
       </Layout>

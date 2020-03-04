@@ -1,18 +1,71 @@
 import React from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { Button, Layout, List, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
-import { CartItem } from './extra/cart-item.component';
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+
+import { CartItem, GET_LAUNCH } from './extra/cart-item.component';
 import { Product } from './extra/data';
 
-const initialProducts: Product[] = [
-  Product.pinkChair(),
-  Product.blackLamp(),
-];
+export const BOOK_TRIPS = gql`
+  mutation BookTrips($launchIds: [ID]!) {
+    bookTrips(launchIds: $launchIds) {
+      success
+      message
+      launches {
+        id
+        isBooked
+      }
+    }
+  }
+`;
 
-export default (): React.ReactElement => {
+export interface BookTrips_bookTrips_launches {
+  __typename: "Launch";
+  id: string;
+  isBooked: boolean;
+}
+
+export interface BookTrips_bookTrips {
+  __typename: "TripUpdateResponse";
+  success: boolean;
+  message: string | null;
+  launches: (BookTrips_bookTrips_launches | null)[] | null;
+}
+
+export interface BookTrips {
+  bookTrips: BookTrips_bookTrips;
+}
+
+export interface BookTripsVariables {
+  launchIds: (string | null)[];
+}
+
+export default ({ navigation, cartItems }): React.ReactElement => {
+  const initialProducts: Product[] = cartItems.map(o => new Product(
+    o, '', '', null, 0, 0
+  ));
+  
+  const [bookTrips, { data, error }] = useMutation<BookTrips, BookTripsVariables>(
+    BOOK_TRIPS,
+    {
+      variables: { launchIds: cartItems },
+      refetchQueries: cartItems.map(launchId => ({
+        query: GET_LAUNCH,
+        variables: { launchId },
+      })),
+      update(cache) {
+        cache.writeData({ data: { cartItems: [] } });
+      }
+    }
+  );
 
   const styles = useStyleSheet(themedStyle);
   const [products, setProducts] = React.useState<Product[]>(initialProducts);
+
+  if (error) {
+    console.log(error);
+  }
 
   const totalCost = (): number => {
     return products.reduce((acc: number, product: Product): number => acc + product.totalPrice, 0);
@@ -56,7 +109,8 @@ export default (): React.ReactElement => {
       />
       <Button
         style={styles.checkoutButton}
-        size='giant'>
+        size='giant'
+        onPress={() => bookTrips()}>
         CHECKOUT
       </Button>
     </Layout>

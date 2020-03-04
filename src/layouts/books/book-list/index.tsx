@@ -2,22 +2,17 @@ import React from 'react';
 import { ListRenderItemInfo, StyleSheet } from 'react-native';
 import { List, Layout } from '@ui-kitten/components';
 import { TrainingCard } from './extra/training-card.component';
-import { Training } from './extra/data';
+import { Training, TrainingLevel } from './extra/data';
 
-const trainings: Training[] = [
-  Training.chestEasy(),
-  Training.workoutEasy(),
-  Training.personalizedEasy(),
-  Training.bicepsMiddle(),
-  Training.chestMiddle(),
-  Training.personalizedMiddle(),
-  Training.bicepsHard(),
-  Training.workoutHard(),
-  Training.chestHard(),
-];
+export default ({navigation, trips}): React.ReactElement => {
 
-export default (): React.ReactElement => {
-
+  const trainings: Training[] = trips.map(o => new Training(
+    o.mission.name,
+    o.id,
+    TrainingLevel.EASY,
+    { uri: o.mission.missionPatch },
+  ));
+  
   const displayTrainings: Training[] = trainings.filter(training => training.level === 'Easy');
 
   const renderItem = (info: ListRenderItemInfo<Training>): React.ReactElement => (

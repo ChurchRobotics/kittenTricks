@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { AppearanceProvider } from 'react-native-appearance';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { enableScreens } from 'react-native-screens';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { AppLoading, LoadFontsTask, Task } from './app-loading.component';
@@ -11,7 +13,9 @@ import { SplashImage } from '../components/splash-image.component';
 import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
-import { enableScreens } from 'react-native-screens';
+import { ApolloProvider } from '../services/apollo.service';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 // Enable native screens
 enableScreens();
@@ -23,8 +27,10 @@ const loadingTasks: Task[] = [
     'opensans-regular': require('../assets/fonts/opensans-regular.ttf'),
     'roboto-regular': require('../assets/fonts/roboto-regular.ttf'),
   }),
-  () => AppStorage.getMapping(defaultConfig.mapping).then(result => ['mapping', result]),
-  () => AppStorage.getTheme(defaultConfig.theme).then(result => ['theme', result]),
+  async () => ['mapping', await AppStorage.getMapping(defaultConfig.mapping)],
+  async () => ['theme', await AppStorage.getTheme(defaultConfig.theme)],
+  async () => ['refreshToken', await AppStorage.getRefreshToken()],
+  async () => ['accessToken', await AppStorage.getAccessToken()],
 ];
 
 const defaultConfig: { mapping: Mapping, theme: Theme } = {
@@ -32,21 +38,34 @@ const defaultConfig: { mapping: Mapping, theme: Theme } = {
   theme: 'light',
 };
 
-const App = ({ mapping, theme }): React.ReactElement => {
+const GET_MAPPING_AND_THEME = gql`
+  query GetMappingAndTheme {
+    mapping @client
+    theme @client
+  }
+`;
 
+interface GetMappingAndTheme {
+  mapping: Mapping;
+  theme: Theme;
+}
+
+const App = (): React.ReactElement => {
+  const { data: { mapping, theme } }
+    = useQuery<GetMappingAndTheme>(GET_MAPPING_AND_THEME);
   const [mappingContext, currentMapping] = Theming.useMapping(appMappings, mapping);
   const [themeContext, currentTheme] = Theming.useTheming(appThemes, mapping, theme);
 
   return (
     <React.Fragment>
-      <IconRegistry icons={[EvaIconsPack, AppIconsPack]}/>
+      <IconRegistry icons={[EvaIconsPack, AppIconsPack]} />
       <AppearanceProvider>
         <ApplicationProvider {...currentMapping} theme={currentTheme}>
           <Theming.MappingContext.Provider value={mappingContext}>
             <Theming.ThemeContext.Provider value={themeContext}>
               <SafeAreaProvider>
-                <StatusBar/>
-                <AppNavigator/>
+                <StatusBar />
+                <AppNavigator />
               </SafeAreaProvider>
             </Theming.ThemeContext.Provider>
           </Theming.MappingContext.Provider>
@@ -68,6 +87,10 @@ export default (): React.ReactElement => (
     tasks={loadingTasks}
     initialConfig={defaultConfig}
     placeholder={Splash}>
-    {props => <App {...props}/>}
+    {props => (
+      <ApolloProvider initialConfig={props}>
+        <App />
+      </ApolloProvider>
+    )}
   </AppLoading>
 );
