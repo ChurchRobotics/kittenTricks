@@ -1,67 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { Button, Layout, List, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
-import { useMutation } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 
-import { CartItem, GET_LAUNCH } from './extra/cart-item.component';
+import { CartItem } from './extra/cart-item.component';
 import { Product } from './extra/data';
 
-export const BOOK_TRIPS = gql`
-  mutation BookTrips($launchIds: [ID]!) {
-    bookTrips(launchIds: $launchIds) {
-      success
-      message
-      launches {
-        id
-        isBooked
-      }
-    }
-  }
-`;
-
-export interface BookTrips_bookTrips_launches {
-  __typename: "Launch";
-  id: string;
-  isBooked: boolean;
-}
-
-export interface BookTrips_bookTrips {
-  __typename: "TripUpdateResponse";
-  success: boolean;
-  message: string | null;
-  launches: (BookTrips_bookTrips_launches | null)[] | null;
-}
-
-export interface BookTrips {
-  bookTrips: BookTrips_bookTrips;
-}
-
-export interface BookTripsVariables {
-  launchIds: (string | null)[];
-}
+import { useMutation } from '@apollo/react-hooks';
+import { BookTrips, BookTripsVariables, BOOK_TRIPS, GET_LAUNCH, GET_CART_ITEMS, GET_MY_TRIPS } from '../../../datagraph/ecommerce';
 
 export default ({ navigation, cartItems }): React.ReactElement => {
   const initialProducts: Product[] = cartItems.map(o => new Product(
     o, '', '', null, 0, 0
   ));
-  
+
   const [bookTrips, { data, error }] = useMutation<BookTrips, BookTripsVariables>(
     BOOK_TRIPS,
     {
       variables: { launchIds: cartItems },
-      refetchQueries: cartItems.map(launchId => ({
-        query: GET_LAUNCH,
-        variables: { launchId },
-      })),
+      refetchQueries: [
+        ...cartItems.map(launchId => ({
+          query: GET_LAUNCH,
+          variables: { launchId },
+        })),
+        { query: GET_MY_TRIPS },
+        { query: GET_CART_ITEMS },
+      ],
       update(cache) {
         cache.writeData({ data: { cartItems: [] } });
+      },
+      onCompleted() {
+        setProducts([]);
       }
     }
   );
 
   const styles = useStyleSheet(themedStyle);
-  const [products, setProducts] = React.useState<Product[]>(initialProducts);
+  const [products, setProducts] = useState<Product[]>(initialProducts);
 
   if (error) {
     console.log(error);

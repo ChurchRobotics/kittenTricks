@@ -13,9 +13,10 @@ import { SplashImage } from '../components/splash-image.component';
 import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
-import { ApolloProvider } from '../services/apollo.service';
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+import { apolloClient } from '../datagraph/apollo.client';
+import { ApolloProvider } from '@apollo/react-hooks';
+
+import { IsUserLoggedIn, IS_LOGGED_IN } from '../datagraph/auth';
 
 // Enable native screens
 enableScreens();
@@ -29,8 +30,12 @@ const loadingTasks: Task[] = [
   }),
   async () => ['mapping', await AppStorage.getMapping(defaultConfig.mapping)],
   async () => ['theme', await AppStorage.getTheme(defaultConfig.theme)],
-  async () => ['refreshToken', await AppStorage.getRefreshToken()],
-  async () => ['accessToken', await AppStorage.getAccessToken()],
+  async () => (
+    apolloClient.writeQuery<IsUserLoggedIn>({
+      query: IS_LOGGED_IN,
+      data: { isLoggedIn: !!await AppStorage.getRefreshToken() },
+    }), null
+  ),
 ];
 
 const defaultConfig: { mapping: Mapping, theme: Theme } = {
@@ -38,21 +43,8 @@ const defaultConfig: { mapping: Mapping, theme: Theme } = {
   theme: 'light',
 };
 
-const GET_MAPPING_AND_THEME = gql`
-  query GetMappingAndTheme {
-    mapping @client
-    theme @client
-  }
-`;
+const App = ({ mapping, theme }): React.ReactElement => {
 
-interface GetMappingAndTheme {
-  mapping: Mapping;
-  theme: Theme;
-}
-
-const App = (): React.ReactElement => {
-  const { data: { mapping, theme } }
-    = useQuery<GetMappingAndTheme>(GET_MAPPING_AND_THEME);
   const [mappingContext, currentMapping] = Theming.useMapping(appMappings, mapping);
   const [themeContext, currentTheme] = Theming.useTheming(appThemes, mapping, theme);
 
@@ -88,8 +80,8 @@ export default (): React.ReactElement => (
     initialConfig={defaultConfig}
     placeholder={Splash}>
     {props => (
-      <ApolloProvider initialConfig={props}>
-        <App />
+      <ApolloProvider client={apolloClient}>
+        <App {...props} />
       </ApolloProvider>
     )}
   </AppLoading>

@@ -8,46 +8,42 @@ const ACCESS_TOKEN_KEY: string = 'access.token';
 
 export class AppStorage {
 
-  static getMapping(fallback?: Mapping): Promise<Mapping> {
-    return AsyncStorage.getItem(MAPPING_KEY).then((mapping: Mapping) => {
-      return mapping || fallback;
-    });
-  };
-
-  static getTheme(fallback?: Theme): Promise<Theme> {
-    return AsyncStorage.getItem(THEME_KEY).then((theme: Theme) => {
-      return theme || fallback;
-    });
-  };
-
-  static getRefreshToken(): Promise<string> {
-    return AsyncStorage.getItem(REFRESH_TOKEN_KEY).then((token: string) => {
-      return token || '';
-    });
-  };
-
-  static getAccessToken(): Promise<string> {
-    return AsyncStorage.getItem(ACCESS_TOKEN_KEY).then((token: string) => {
-      return token || '';
-    });
+  static async getMapping(fallback?: Mapping): Promise<Mapping> {
+    return await AsyncStorage.getItem(MAPPING_KEY) as Mapping || fallback;
   };
 
   static setMapping(mapping: Mapping): Promise<void> {
     return AsyncStorage.setItem(MAPPING_KEY, mapping);
   };
 
+  static async getTheme(fallback?: Theme): Promise<Theme> {
+    return await AsyncStorage.getItem(THEME_KEY) as Theme || fallback;
+  };
+
   static setTheme(theme: Theme): Promise<void> {
     return AsyncStorage.setItem(THEME_KEY, theme);
+  };
+
+  static async getRefreshToken(): Promise<string> {
+    return await AsyncStorage.getItem(REFRESH_TOKEN_KEY) || '';
   };
 
   static setRefreshToken(token: string): Promise<void> {
     return AsyncStorage.setItem(REFRESH_TOKEN_KEY, token);
   };
 
-  static setAccessToken(token: string): Promise<void> {
-    return AsyncStorage.setItem(ACCESS_TOKEN_KEY, token);
+  // accessToken cache for hot access
+  static accessToken: string = null;
+
+  static async getAccessToken(): Promise<string> {
+    if (AppStorage.accessToken !== null) return AppStorage.accessToken;
+    return AppStorage.accessToken = await AsyncStorage.getItem(ACCESS_TOKEN_KEY) || '';
   };
 
+  static setAccessToken(token: string): Promise<void> {
+    AppStorage.accessToken = token;
+    return AsyncStorage.setItem(ACCESS_TOKEN_KEY, token);
+  };
 }
 
 /**

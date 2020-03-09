@@ -4,71 +4,8 @@ import { Button, Card, List, Spinner, StyleService, Text, useStyleSheet } from '
 import { CartIcon } from './extra/icons';
 import { Product } from './extra/data';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 
-const LAUNCH_TILE_DATA = gql`
-  fragment LaunchTile on Launch {
-    __typename
-    id
-    isBooked
-    rocket {
-      id
-      name
-    }
-    mission {
-      name
-      missionPatch
-    }
-  }
-`;
-
-const GET_LAUNCHES = gql`
-  query GetLaunchList($after: String) {
-    launches(after: $after) {
-      cursor
-      hasMore
-      launches {
-        ...LaunchTile
-      }
-    }
-  }
-  ${LAUNCH_TILE_DATA}
-`;
-
-export interface GetLaunchList_launches_launches_rocket {
-  __typename: "Rocket";
-  id: string;
-  name: string | null;
-}
-
-export interface GetLaunchList_launches_launches_mission {
-  __typename: "Mission";
-  name: string | null;
-  missionPatch: string | null;
-}
-
-export interface GetLaunchList_launches_launches {
-  __typename: "Launch";
-  id: string;
-  isBooked: boolean;
-  rocket: GetLaunchList_launches_launches_rocket | null;
-  mission: GetLaunchList_launches_launches_mission | null;
-}
-
-export interface GetLaunchList_launches {
-  __typename: "LaunchConnection";
-  cursor: string;
-  hasMore: boolean;
-  launches: (GetLaunchList_launches_launches | null)[];
-}
-
-export interface GetLaunchList {
-  launches: GetLaunchList_launches;
-}
-
-export interface GetLaunchListVariables {
-  after?: string | null;
-}
+import { GetLaunchList, GetLaunchListVariables, GET_LAUNCHES } from '../../../datagraph/ecommerce';
 
 export const ProductListScreen = ({ navigation, route }): React.ReactElement => {
   const { 

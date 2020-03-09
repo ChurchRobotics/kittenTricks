@@ -3,20 +3,10 @@ import { StyleSheet } from 'react-native';
 import { Spinner, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
 import { ArrowIosBackIcon, SearchIcon } from '../../components/icons';
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-
 import ContentView from '../../layouts/ecommerce/shopping-cart';
 
-export const GET_CART_ITEMS = gql`
-  query GetCartItems {
-    cartItems @client
-  }
-`;
-
-export interface GetCartItems {
-  cartItems: string[];
-}
+import { useQuery } from '@apollo/react-hooks';
+import { GetCartItems, GET_CART_ITEMS } from '../../datagraph/ecommerce';
 
 export const ShoppingCartScreen = ({ navigation }): React.ReactElement => {
   const { 

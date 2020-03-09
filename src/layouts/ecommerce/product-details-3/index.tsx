@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ImageBackground, Platform, View } from 'react-native';
 import {
   Button,
@@ -13,82 +13,9 @@ import {
 import { KeyboardAvoidingView } from './extra/keyboard-avoiding-view.component';
 import { CommentList } from './extra/comment-list.component';
 import { Product, ProductColor, Comment } from './extra/data';
+
 import { useMutation } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-
-import { GET_CART_ITEMS } from '../../../scenes/ecommerce/shopping-cart.component';
-
-const LAUNCH_TILE_DATA = gql`
-  fragment LaunchTile on Launch {
-    __typename
-    id
-    isBooked
-    rocket {
-      id
-      name
-    }
-    mission {
-      name
-      missionPatch
-    }
-  }
-`;
-
-const GET_LAUNCH_DETAILS = gql`
-  query LaunchDetails($launchId: ID!) {
-    launch(id: $launchId) {
-      isInCart @client
-      site
-      rocket {
-        type
-      }
-      ...LaunchTile
-    }
-  }
-  ${LAUNCH_TILE_DATA}
-`;
-
-export const TOGGLE_CART = gql`
-  mutation addOrRemoveFromCart($launchId: ID!) {
-    addOrRemoveFromCart(id: $launchId) @client
-  }
-`;
-
-export const CANCEL_TRIP = gql`
-  mutation cancel($launchId: ID!) {
-    cancelTrip(launchId: $launchId) {
-      success
-      message
-      launches {
-        id
-        isBooked
-      }
-    }
-  }
-`;
-
-export interface LaunchDetails_launch_rocket {
-  __typename: "Rocket";
-  type: string | null;
-  id: string;
-  name: string | null;
-}
-
-export interface LaunchDetails_launch_mission {
-  __typename: "Mission";
-  name: string | null;
-  missionPatch: string | null;
-}
-
-export interface LaunchDetails_launch {
-  __typename: "Launch";
-  isInCart: boolean;
-  site: string | null;
-  rocket: LaunchDetails_launch_rocket | null;
-  id: string;
-  isBooked: boolean;
-  mission: LaunchDetails_launch_mission | null;
-}
+import { GET_CART_ITEMS, GET_LAUNCH_DETAILS, TOGGLE_CART } from '../../../datagraph/ecommerce';
 
 const keyboardOffset = (height: number): number => Platform.select({
   android: 0,
@@ -97,8 +24,8 @@ const keyboardOffset = (height: number): number => Platform.select({
 
 export default ({ navigation, launch }): React.ReactElement => {
 
-  const [comment, setComment] = React.useState<string>();
-  const [selectedColorIndex, setSelectedColorIndex] = React.useState<number>();
+  const [comment, setComment] = useState<string>();
+  const [selectedColorIndex, setSelectedColorIndex] = useState<number>();
   const styles = useStyleSheet(themedStyles);
 
   const [buyMutate, { loading: buyLoading, error: buyError }] = useMutation(
@@ -118,15 +45,17 @@ export default ({ navigation, launch }): React.ReactElement => {
     TOGGLE_CART,
     {
       variables: { launchId: launch.id },
+      ignoreResults: true,
       refetchQueries: [
         {
           query: GET_LAUNCH_DETAILS,
           variables: { launchId: launch.id },
         },
-        {
-          query: GET_CART_ITEMS,
-        }
-      ]
+        { query: GET_CART_ITEMS }
+      ],
+      onCompleted: () => {
+        navigation && navigation.navigate('ShoppingCart');
+      },
     }
   );
 
@@ -156,7 +85,6 @@ export default ({ navigation, launch }): React.ReactElement => {
 
   const onAddButtonPress = (): void => {
     cartMutate();
-    navigation && navigation.navigate('ShoppingCart');
   };
 
   const renderColorItem = (color: ProductColor, index: number): React.ReactElement => (

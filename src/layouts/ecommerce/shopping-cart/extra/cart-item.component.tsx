@@ -1,67 +1,12 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Button, ListItem, ListItemProps, Spinner, Text } from '@ui-kitten/components';
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 
 import { CloseIcon, MinusIcon, PlusIcon } from './icons';
 import { Product } from './data';
 
-const LAUNCH_TILE_DATA = gql`
-  fragment LaunchTile on Launch {
-    __typename
-    id
-    isBooked
-    rocket {
-      id
-      name
-    }
-    mission {
-      name
-      missionPatch
-    }
-  }
-`;
-
-export const GET_LAUNCH = gql`
-  query GetLaunch($launchId: ID!) {
-    launch(id: $launchId) {
-      ...LaunchTile
-    }
-  }
-  ${LAUNCH_TILE_DATA}
-`;
-
-export interface LaunchDetails_launch_rocket {
-  __typename: "Rocket";
-  type: string | null;
-  id: string;
-  name: string | null;
-}
-
-export interface LaunchDetails_launch_mission {
-  __typename: "Mission";
-  name: string | null;
-  missionPatch: string | null;
-}
-
-export interface LaunchDetails_launch {
-  __typename: "Launch";
-  isInCart: boolean;
-  site: string | null;
-  rocket: LaunchDetails_launch_rocket | null;
-  id: string;
-  isBooked: boolean;
-  mission: LaunchDetails_launch_mission | null;
-}
-
-export interface LaunchDetails {
-  launch: LaunchDetails_launch | null;
-}
-
-export interface LaunchDetailsVariables {
-  launchId: string;
-}
+import { useQuery } from '@apollo/react-hooks';
+import { GetLaunch, GetLaunchVariables, GET_LAUNCH } from '../../../../datagraph/ecommerce';
 
 export type CartItemProps = ListItemProps & {
   index: number;
@@ -74,7 +19,7 @@ export const CartItem = (props: CartItemProps): React.ReactElement => {
 
   const { style, index, onProductChange, onRemove, ...listItemProps } = props;
   let { product } = props;
-  const { data, loading, error } = useQuery<LaunchDetails, LaunchDetailsVariables>(
+  const { data, loading, error } = useQuery<GetLaunch, GetLaunchVariables>(
     GET_LAUNCH,
     { variables: { launchId: String(product.id) } }
   );
@@ -123,7 +68,7 @@ export const CartItem = (props: CartItemProps): React.ReactElement => {
     product = new Product(
       product.id,
       launch.mission.name,
-      launch.site,
+      launch.rocket.name,
       { uri: launch.mission.missionPatch },
       Number(product.id),
       1,
