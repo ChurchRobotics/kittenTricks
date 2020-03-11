@@ -16,7 +16,7 @@ import { Mapping, Theme, Theming } from '../services/theme.service';
 import { apolloClient } from '../datagraph/apollo.client';
 import { ApolloProvider } from '@apollo/react-hooks';
 
-import { IsUserLoggedIn, IS_LOGGED_IN } from '../datagraph/auth';
+import { IsUserLoggedIn, IS_LOGGED_IN } from '../datagraph/auth/login.query';
 
 // Enable native screens
 enableScreens();

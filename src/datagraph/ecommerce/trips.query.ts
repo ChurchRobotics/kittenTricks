@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { LAUNCH_TILE_DATA } from './launch';
+import { LAUNCH_TILE_DATA } from './launch.query';
 
 // types
 export * from './types/BookTrips';

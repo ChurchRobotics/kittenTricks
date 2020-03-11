@@ -7,7 +7,7 @@ import { ArrowIosBackIcon } from '../../components/icons';
 import ContentView from '../../layouts/books/book-list';
 
 import { useQuery } from '@apollo/react-hooks';
-import { GetMyTrips, GET_MY_TRIPS } from '../../datagraph/ecommerce';
+import { GetMyTrips, GET_MY_TRIPS } from '../../datagraph/ecommerce/trips.query';
 
 export const BookListScreen = ({ navigation }): React.ReactElement => {
   const {

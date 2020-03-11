@@ -2,7 +2,7 @@ import { ApolloCache } from 'apollo-cache';
 import { Resolvers } from 'apollo-client';
 import gql from 'graphql-tag';
 
-import { GetCartItems, GET_CART_ITEMS } from './';
+import { GetCartItems, GET_CART_ITEMS } from './cart.query';
 
 /**
  * eCommerce graph extension

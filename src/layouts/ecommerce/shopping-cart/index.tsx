@@ -6,7 +6,9 @@ import { CartItem } from './extra/cart-item.component';
 import { Product } from './extra/data';
 
 import { useMutation } from '@apollo/react-hooks';
-import { BookTrips, BookTripsVariables, BOOK_TRIPS, GET_LAUNCH, GET_CART_ITEMS, GET_MY_TRIPS } from '../../../datagraph/ecommerce';
+import { BookTrips, BookTripsVariables, BOOK_TRIPS, GET_MY_TRIPS } from '../../../datagraph/ecommerce/trips.query';
+import { GET_LAUNCH } from '../../../datagraph/ecommerce/launch.query';
+import { GET_CART_ITEMS } from '../../../scenes/ecommerce/shopping-cart.component';
 
 export default ({ navigation, cartItems }): React.ReactElement => {
   const initialProducts: Product[] = cartItems.map(o => new Product(

@@ -6,7 +6,7 @@ import { CloseIcon, MinusIcon, PlusIcon } from './icons';
 import { Product } from './data';
 
 import { useQuery } from '@apollo/react-hooks';
-import { GetLaunch, GetLaunchVariables, GET_LAUNCH } from '../../../../datagraph/ecommerce';
+import { GetLaunch, GetLaunchVariables, GET_LAUNCH } from '../../../../datagraph/ecommerce/launch.query';
 
 export type CartItemProps = ListItemProps & {
   index: number;
