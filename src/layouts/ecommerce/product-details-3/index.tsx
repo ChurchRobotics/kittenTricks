@@ -15,7 +15,10 @@ import { CommentList } from './extra/comment-list.component';
 import { Product, ProductColor, Comment } from './extra/data';
 
 import { useMutation } from '@apollo/react-hooks';
-import { GET_CART_ITEMS, GET_LAUNCH_DETAILS, TOGGLE_CART } from '../../../datagraph/ecommerce';
+import { TOGGLE_CART } from '../../../datagraph/ecommerce';
+
+import { GET_LAUNCH_DETAILS } from '../../../scenes/ecommerce/product-details-3.component';
+import { GET_CART_ITEMS } from '../../../scenes/ecommerce/shopping-cart.component';
 
 const keyboardOffset = (height: number): number => Platform.select({
   android: 0,
