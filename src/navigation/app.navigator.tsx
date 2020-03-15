@@ -8,7 +8,7 @@ import {
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { HomeNavigator } from './home.navigator';
 import { TodayNavigator } from './today.navigator'
-import { BooksNavigator } from './books.navigator';
+import { WorkbenchNavigator } from './workbench.navigator';
 import { MessagingNavigator } from './messaging.navigator';
 import { MeNavigator } from './me.navigator';
 import { AppBottomNavigation } from '../scenes/app/app-bottom-navigation.component';
@@ -22,12 +22,12 @@ const Drawer = createDrawerNavigator();
  * When dev is true in .expo/settings.json (started via `start:dev`),
  * open Record tab as default.
  */
-const initialTabRoute: string = __DEV__ ? 'Books' : 'Home';
+const initialTabRoute: string = __DEV__ ? 'Workbench' : 'Home';
 
 /*
  * Can we access it from `AppTabsNavigator`?
  */
-const ROOT_ROUTES: string[] = ['Home', 'Today', 'Books', 'Messaging', 'Me'];
+const ROOT_ROUTES: string[] = ['Home', 'Today', 'Workbench', 'Messaging', 'Me'];
 
 const isOneOfRootRoutes = (currentRoute: RouteProp<any, any>): boolean => {
   return ROOT_ROUTES.indexOf(currentRoute.name) !== -1;
@@ -45,7 +45,7 @@ const AppTabsNavigator = (): React.ReactElement => (
     tabBar={props => <AppBottomNavigation {...props} />}>
     <BottomTab.Screen name='Home' component={HomeNavigator}/>
     <BottomTab.Screen name='Today' component={TodayNavigator}/>
-    <BottomTab.Screen name='Books' component={BooksNavigator}/>
+    <BottomTab.Screen name='Workbench' component={WorkbenchNavigator}/>
     <BottomTab.Screen name='Messaging' component={MessagingNavigator}/>
     <BottomTab.Screen name='Me' component={MeNavigator}/>
   </BottomTab.Navigator>
@@ -55,7 +55,7 @@ const AppDrawerNavigator = (): React.ReactElement => (
   <Drawer.Navigator
     screenOptions={{ gestureEnabled: false }}
     drawerContent={props => <AppDrawer {...props}/>}>
-    <Drawer.Screen name='Main' component={AppTabsNavigator}/>
+    <Drawer.Screen name='Root' component={AppTabsNavigator}/>
     <Drawer.Screen name='Libraries' component={LibrariesScreen}/>
   </Drawer.Navigator>
 );
