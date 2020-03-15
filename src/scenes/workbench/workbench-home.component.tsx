@@ -38,7 +38,7 @@ export const WorkbenchHomeScreen = ({ navigation }): React.ReactElement => {
       style={styles.container}
       insets='top'>
       <TopNavigation
-        title='Book Requests'
+        title='Book Request'
         leftControl={renderBackAction()}
       />
       {renderContent()}
