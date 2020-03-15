@@ -4,12 +4,12 @@ import { Spinner, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/co
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
 import { ArrowIosBackIcon } from '../../components/icons';
 
-import ContentView from '../../layouts/books/book-list';
+import ContentView from '../../layouts/workbench/workbench-home';
 
 import { useQuery } from '@apollo/react-hooks';
 import { GetMyTrips, GET_MY_TRIPS } from '../../datagraph/ecommerce/trips.query';
 
-export const BookListScreen = ({ navigation }): React.ReactElement => {
+export const WorkbenchHomeScreen = ({ navigation }): React.ReactElement => {
   const {
     data,
     loading,
@@ -38,7 +38,7 @@ export const BookListScreen = ({ navigation }): React.ReactElement => {
       style={styles.container}
       insets='top'>
       <TopNavigation
-        title='Book Request'
+        title='Book Requests'
         leftControl={renderBackAction()}
       />
       {renderContent()}
