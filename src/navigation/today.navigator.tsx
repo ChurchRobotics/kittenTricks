@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TodayListScreen } from '../scenes/today/today-list.component';
+import { TodayScreen } from '../scenes/today/today.component';
 import { Article1Screen } from '../scenes/articles/article-1.component';
 import { Article2Screen } from '../scenes/articles/article-2.component';
 import { Article3Screen } from '../scenes/articles/article-3.component';
@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 export const TodayNavigator = (): React.ReactElement => (
   <Stack.Navigator headerMode='none'>
-    <Stack.Screen name='Today' component={TodayListScreen}/>
+    <Stack.Screen name='Today' component={TodayScreen}/>
     <Stack.Screen name='Article1' component={Article1Screen}/>
     <Stack.Screen name='Article2' component={Article2Screen}/>
     <Stack.Screen name='Article3' component={Article3Screen}/>
