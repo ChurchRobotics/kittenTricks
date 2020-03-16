@@ -3,9 +3,9 @@ import { StyleSheet } from 'react-native';
 import { TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
 import { ArrowIosBackIcon } from '../../components/icons';
-import ContentView from '../../layouts/booking/booking';
+import ContentView from '../../layouts/store/store';
 
-export const BookingScreen = ({ navigation }): React.ReactElement => {
+export const StoreScreen = ({ navigation }): React.ReactElement => {
 
   const renderBackAction = (): React.ReactElement => (
     <TopNavigationAction
@@ -19,7 +19,7 @@ export const BookingScreen = ({ navigation }): React.ReactElement => {
       style={styles.container}
       insets='top'>
       <TopNavigation
-        title='Booking'
+        title='Store'
         leftControl={renderBackAction()}
       />
       <ContentView/>

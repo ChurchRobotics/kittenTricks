@@ -6,7 +6,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { BookingNavigator } from './booking.navigator';
+import { StoreNavigator } from './store.navigator';
 import { TodayNavigator } from './today.navigator'
 import { WorkbenchNavigator } from './workbench.navigator';
 import { MessagingNavigator } from './messaging.navigator';
@@ -22,12 +22,12 @@ const Drawer = createDrawerNavigator();
  * When dev is true in .expo/settings.json (started via `start:dev`),
  * open Record tab as default.
  */
-const initialTabRoute: string = __DEV__ ? 'Workbench' : 'Booking';
+const initialTabRoute: string = __DEV__ ? 'Workbench' : 'Store';
 
 /*
  * Can we access it from `AppTabsNavigator`?
  */
-const ROOT_ROUTES: string[] = ['Booking', 'Today', 'Workbench', 'Messaging', 'Me'];
+const ROOT_ROUTES: string[] = ['Store', 'Today', 'Workbench', 'Messaging', 'Me'];
 
 const isOneOfRootRoutes = (currentRoute: RouteProp<any, any>): boolean => {
   return ROOT_ROUTES.indexOf(currentRoute.name) !== -1;
@@ -43,7 +43,7 @@ const AppTabsNavigator = (): React.ReactElement => (
     screenOptions={TabBarVisibleOnRootScreenOptions}
     initialRouteName={initialTabRoute}
     tabBar={props => <AppBottomNavigation {...props} />}>
-    <BottomTab.Screen name='Booking' component={BookingNavigator}/>
+    <BottomTab.Screen name='Store' component={StoreNavigator}/>
     <BottomTab.Screen name='Today' component={TodayNavigator}/>
     <BottomTab.Screen name='Workbench' component={WorkbenchNavigator}/>
     <BottomTab.Screen name='Messaging' component={MessagingNavigator}/>
