@@ -13,10 +13,10 @@ import { SplashImage } from '../components/splash-image.component';
 import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
-import { apolloClient } from '../datagraph/apollo.client';
+import { apolloClient } from '../graph/apollo.client';
 import { ApolloProvider } from '@apollo/react-hooks';
 
-import { IsUserLoggedIn, IS_LOGGED_IN } from '../datagraph/auth/login.query';
+import { IsUserLoggedIn, IS_LOGGED_IN } from '../graph/auth/login.query';
 
 // Enable native screens
 enableScreens();

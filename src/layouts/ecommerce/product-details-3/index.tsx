@@ -15,7 +15,7 @@ import { CommentList } from './extra/comment-list.component';
 import { Product, ProductColor, Comment } from './extra/data';
 
 import { useMutation } from '@apollo/react-hooks';
-import { TOGGLE_CART } from '../../../datagraph/ecommerce/cart.query';
+import { TOGGLE_CART } from '../../../graph/ecommerce/cart.query';
 
 import { GET_LAUNCH_DETAILS } from '../../../scenes/ecommerce/product-details-3.component';
 import { GET_CART_ITEMS } from '../../../scenes/ecommerce/shopping-cart.component';
