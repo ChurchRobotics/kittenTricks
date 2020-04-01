@@ -4,8 +4,10 @@ import { setContext } from 'apollo-link-context';
 import { HttpLink } from 'apollo-link-http';
 import { AppStorage } from '../services/app-storage.service';
 
-import { authResolvers, authTypeDefs } from './auth/extension';
-import { eCommerceResolvers, eCommerceTypeDefs } from './ecommerce/extension';
+import {
+  localTypeDefs as typeDefs,
+  localResolvers as resolvers,
+} from './resolvers';
 
 // Set up our apollo-client to point at the server we created
 // this can be local or a remote endpoint
@@ -31,16 +33,6 @@ const authLink = setContext(async (_, { headers }) => {
     }
   }
 });
-
-const typeDefs = [
-  authTypeDefs,
-  eCommerceTypeDefs,
-];
-
-const resolvers = [
-  authResolvers,
-  eCommerceResolvers,
-];
 
 export const apolloClient: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache,

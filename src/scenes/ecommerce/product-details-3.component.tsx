@@ -6,7 +6,7 @@ import { ArrowIosBackIcon, BookmarkIcon, BookmarkOutlineIcon } from '../../compo
 import ContentView from '../../layouts/ecommerce/product-details-3';
 
 import { useQuery } from '@apollo/react-hooks';
-import { LaunchDetails, LaunchDetailsVariables, GET_LAUNCH_DETAILS } from '../../graph/ecommerce/launch.query';
+import { LaunchDetails, LaunchDetailsVariables, GET_LAUNCH_DETAILS } from '../../queries/ecommerce/launch.query';
 
 // export
 export { GET_LAUNCH_DETAILS };

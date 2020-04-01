@@ -14,5 +14,4 @@ export const authTypeDefs = gql`
  * auth local resolvers
  */
 export const authResolvers: Resolvers = {
-  Mutation: {},
 };

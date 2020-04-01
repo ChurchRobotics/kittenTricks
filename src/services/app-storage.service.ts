@@ -3,8 +3,8 @@ import { Mapping, Theme } from './theme.service';
 
 const MAPPING_KEY: string = 'mapping';
 const THEME_KEY: string = 'theme';
-const REFRESH_TOKEN_KEY: string = 'refresh.token';
-const ACCESS_TOKEN_KEY: string = 'access.token';
+const REFRESH_TOKEN_KEY: string = 'refresh-token';
+const ACCESS_TOKEN_KEY: string = 'access-token';
 
 export class AppStorage {
 
@@ -32,7 +32,7 @@ export class AppStorage {
     return AsyncStorage.setItem(REFRESH_TOKEN_KEY, token);
   };
 
-  // accessToken cache for hot access
+  // cache access token for hot access
   static accessToken: string = null;
 
   static async getAccessToken(): Promise<string> {
