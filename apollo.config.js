@@ -1,7 +1,7 @@
 module.exports = {
   client: {
     includes: [
-      './src/dgraph/**/*.{ts,tsx}',
+      './src/graph/**/*.{ts,tsx}',
       './src/queries/**/*.{ts,tsx}',
     ],
     service: {

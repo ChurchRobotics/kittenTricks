@@ -14,7 +14,7 @@ import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { apolloClient } from '../dgraph/apollo.client';
+import { createApolloClient } from '../graph/apollo.client';
 
 // Enable native screens
 enableScreens();
@@ -72,7 +72,7 @@ export default (): React.ReactElement => (
     initialConfig={defaultConfig}
     placeholder={Splash}>
     {props => (
-      <ApolloProvider client={apolloClient}>
+      <ApolloProvider client={createApolloClient()}>
         <App {...props} />
       </ApolloProvider>
     )}
