@@ -1,28 +1,10 @@
 import { ApolloCache } from 'apollo-cache';
 import { Resolvers } from 'apollo-client';
-import gql from 'graphql-tag';
 
 import { GetCartItems, GET_CART_ITEMS } from '../../queries/ecommerce/cart.query';
 
 /**
- * eCommerce graph extension
- */
-export const eCommerceTypeDefs = gql`
-  extend type Query {
-    cartItems: [ID!]!
-  }
-
-  extend type Launch {
-    isInCart: Boolean!
-  }
-
-  extend type Mutation {
-    addOrRemoveFromCart(id: ID!): [ID!]!
-  }
-`;
-
-/**
- * eCommerce local resolvers
+ * local eCommerce resolvers
  */
 export const eCommerceResolvers: Resolvers = {
   Launch: {

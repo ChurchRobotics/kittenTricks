@@ -4,10 +4,8 @@ import { setContext } from 'apollo-link-context';
 import { HttpLink } from 'apollo-link-http';
 import { AppStorage } from '../services/app-storage.service';
 
-import {
-  localTypeDefs as typeDefs,
-  localResolvers as resolvers,
-} from './local';
+import { typeDefs } from './schema';
+import { resolvers } from './resolvers';
 
 // Set up our apollo-client to point at the server we created
 // this can be local or a remote endpoint
