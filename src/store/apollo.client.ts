@@ -7,7 +7,7 @@ import { AppStorage } from '../services/app-storage.service';
 import {
   localTypeDefs as typeDefs,
   localResolvers as resolvers,
-} from './resolvers';
+} from './local';
 
 // Set up our apollo-client to point at the server we created
 // this can be local or a remote endpoint

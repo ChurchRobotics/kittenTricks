@@ -13,8 +13,8 @@ import { SplashImage } from '../components/splash-image.component';
 import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
-import { apolloClient } from '../store/apollo.client';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { apolloClient } from '../store/apollo.client';
 
 import { IsUserLoggedIn, IS_LOGGED_IN } from '../queries/auth/login.query';
 
