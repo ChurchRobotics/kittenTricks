@@ -14,20 +14,19 @@ const cache = new InMemoryCache();
 
 cache.writeData({
   data: {
-    isLoggedIn: false,
     cartItems: [],
   },
 });
 
 const authLink = setContext(async (_, { headers }) => {
-  // get authentication token from storage
+  // get the authentication token from local storage if it exists
   const token = await AppStorage.getAccessToken()
     || 'c29wbC53YW5nQGdtYWlsLmNvbQ==';
-
+  // return the headers to the context so httpLink can read them
   return !token ? { headers } : {
     headers: {
-      authorization: token,
       ...headers,
+      authorization: token,
     }
   }
 });
