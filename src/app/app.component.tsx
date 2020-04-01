@@ -14,7 +14,7 @@ import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { createApolloClient } from '../graph/apollo.client';
+import { createApolloClient } from '../datagraph/apollo.client';
 
 // Enable native screens
 enableScreens();
