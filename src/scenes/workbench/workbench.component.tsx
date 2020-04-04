@@ -6,7 +6,7 @@ import { ArrowIosBackIcon } from '../../components/icons';
 import ContentView from '../../layouts/workbench/workbench';
 
 import { useQuery } from '@apollo/react-hooks';
-import { GetMyTrips, GET_MY_TRIPS } from '../../queries/ecommerce/trips.query';
+import { GetMyTrips, GET_MY_TRIPS } from '../../gql/queries/ecommerce/trips.query';
 
 export const WorkbenchScreen = ({ navigation }): React.ReactElement => {
   const {

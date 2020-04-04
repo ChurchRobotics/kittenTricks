@@ -5,7 +5,7 @@ import { CartIcon } from './extra/icons';
 import { Product } from './extra/data';
 import { useQuery } from '@apollo/react-hooks';
 
-import { GetLaunchList, GetLaunchListVariables, GET_LAUNCHES } from '../../../queries/ecommerce/launch.query';
+import { GetLaunchList, GetLaunchListVariables, GET_LAUNCHES } from '../../../gql/queries/ecommerce/launch.query';
 
 export const ProductListScreen = ({ navigation, route }): React.ReactElement => {
   const { 

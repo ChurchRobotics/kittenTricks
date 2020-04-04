@@ -6,7 +6,7 @@ import { ArrowIosBackIcon, SearchIcon } from '../../components/icons';
 import ContentView from '../../layouts/ecommerce/shopping-cart';
 
 import { useQuery } from '@apollo/react-hooks';
-import { GetCartItems, GET_CART_ITEMS } from '../../queries/ecommerce/cart.query';
+import { GetCartItems, GET_CART_ITEMS } from '../../gql/queries/ecommerce/cart.query';
 
 // export
 export { GET_CART_ITEMS };

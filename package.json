@@ -29,7 +29,7 @@
     "lint": "tslint -c ./tslint.json ./src/**/*.{ts,tsx}",
     "changelog": "conventional-changelog -i ./CHANGELOG.md -s",
     "postinstall": "jetify",
-    "codegen": "apollo client:codegen --target=typescript --globalTypesFile=./src/queries/globalTypes.ts types --watch"
+    "codegen": "apollo client:codegen --target=typescript --globalTypesFile=./src/gql/queries/globalTypes.ts types --watch"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
