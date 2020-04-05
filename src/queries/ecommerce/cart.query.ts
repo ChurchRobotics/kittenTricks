@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 // types
-export * from './types/addOrRemoveFromCart';
-export * from './types/GetCartItems';
+export * from './__generated__/addOrRemoveFromCart';
+export * from './__generated__/GetCartItems';
 
 /**
  * {@link GetCartItems} query

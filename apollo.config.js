@@ -1,7 +1,8 @@
 module.exports = {
   client: {
     includes: [
-      './src/gql/**/*.{ts,tsx}',
+      './src/queries/**/*.{ts,tsx}',
+      './src/resolvers/**/*.{ts,tsx}',
     ],
     service: {
       name: 'fullstack-tutorial',

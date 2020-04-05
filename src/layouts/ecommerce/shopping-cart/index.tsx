@@ -6,8 +6,8 @@ import { CartItem } from './extra/cart-item.component';
 import { Product } from './extra/data';
 
 import { useMutation } from '@apollo/react-hooks';
-import { BookTrips, BookTripsVariables, BOOK_TRIPS, GET_MY_TRIPS } from '../../../gql/queries/ecommerce/trips.query';
-import { GET_LAUNCH } from '../../../gql/queries/ecommerce/launch.query';
+import { BookTrips, BookTripsVariables, BOOK_TRIPS, GET_MY_TRIPS } from '../../../queries/ecommerce/trips.query';
+import { GET_LAUNCH } from '../../../queries/ecommerce/launch.query';
 import { GET_CART_ITEMS } from '../../../scenes/ecommerce/shopping-cart.component';
 
 export default ({ navigation, cartItems }): React.ReactElement => {

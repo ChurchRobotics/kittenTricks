@@ -2,9 +2,9 @@ import gql from 'graphql-tag';
 import { LAUNCH_TILE_DATA } from './launch.query';
 
 // types
-export * from './types/BookTrips';
-export * from './types/cancel';
-export * from './types/GetMyTrips';
+export * from './__generated__/BookTrips';
+export * from './__generated__/cancel';
+export * from './__generated__/GetMyTrips';
 
 /**
  * {@link GetMyTrips} mutation

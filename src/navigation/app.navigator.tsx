@@ -1,4 +1,5 @@
 import React from 'react';
+import { enableScreens } from 'react-native-screens';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { RouteProp } from '@react-navigation/core';
 import {
@@ -14,6 +15,9 @@ import { MeNavigator } from './me.navigator';
 import { AppBottomNavigation } from '../scenes/app/app-bottom-navigation.component';
 import { AppDrawer } from '../scenes/app/app-drawer.component';
 import { LibrariesScreen } from '../scenes/libraries/libraries.component';
+
+// Enable native screens
+enableScreens();
 
 const BottomTab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();

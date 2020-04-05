@@ -1,10 +1,10 @@
 import gql from 'graphql-tag';
 
 // types
-export * from './types/GetLaunch';
-export * from './types/GetLaunchList';
-export * from './types/LaunchDetails';
-export * from './types/LaunchTile';
+export * from './__generated__/GetLaunch';
+export * from './__generated__/GetLaunchList';
+export * from './__generated__/LaunchDetails';
+export * from './__generated__/LaunchTile';
 
 /**
  * {@link LaunchTile} fragment

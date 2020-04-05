@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 // types
-export * from './types/IsUserLoggedIn';
+export * from './__generated__/IsUserLoggedIn';
 
 /**
  * {@link IsUserLoggedIn} query

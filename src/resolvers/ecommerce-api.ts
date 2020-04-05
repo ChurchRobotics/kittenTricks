@@ -3,9 +3,6 @@ import { Resolvers } from 'apollo-client';
 
 import { GetCartItems, GET_CART_ITEMS } from '../queries/ecommerce/cart.query';
 
-/**
- * local eCommerce resolvers
- */
 export const eCommerceResolvers: Resolvers = {
   Launch: {
     isInCart: (launch, _, { cache }: { cache: ApolloCache<any> }): boolean => {

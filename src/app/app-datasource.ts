@@ -4,8 +4,7 @@ import { setContext } from 'apollo-link-context';
 import { HttpLink } from 'apollo-link-http';
 import { AppStorage } from '../services/app-storage.service';
 
-import { typeDefs } from './schema';
-import { resolvers } from './resolvers';
+import { typeDefs, resolvers } from '../resolvers';
 
 export function createApolloClient()
   : ApolloClient<NormalizedCacheObject> {

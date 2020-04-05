@@ -2,7 +2,6 @@ import React from 'react';
 
 import { AppearanceProvider } from 'react-native-appearance';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { enableScreens } from 'react-native-screens';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { AppLoading, LoadFontsTask, Task } from './app-loading.component';
@@ -14,10 +13,7 @@ import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { createApolloClient } from '../gql';
-
-// Enable native screens
-enableScreens();
+import { createApolloClient } from './app-datasource';
 
 const loadingTasks: Task[] = [
   // Should be used it when running Expo.
