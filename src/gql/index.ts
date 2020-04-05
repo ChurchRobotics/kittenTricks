@@ -7,7 +7,8 @@ import { AppStorage } from '../services/app-storage.service';
 import { typeDefs } from './schema';
 import { resolvers } from './resolvers';
 
-export const createApolloClient = (): ApolloClient<NormalizedCacheObject> => {
+export function createApolloClient()
+  : ApolloClient<NormalizedCacheObject> {
   // Set up our apollo-client to point at the server we created
   // this can be local or a remote endpoint
   const GRAPHQL_URI = 'http://10.0.2.2:4000/graphql';
