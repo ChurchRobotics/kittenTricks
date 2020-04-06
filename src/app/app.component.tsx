@@ -13,7 +13,7 @@ import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { createApolloClient } from './datasource';
+import { createApolloClient } from './app-datasource';
 
 const loadingTasks: Task[] = [
   // Should be used it when running Expo.
