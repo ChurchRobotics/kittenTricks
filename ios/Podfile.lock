@@ -231,7 +231,7 @@ PODS:
     - React
   - RNReanimated (1.4.0):
     - React
-  - RNScreens (2.0.0-alpha.12):
+  - RNScreens (2.7.0):
     - React
   - RNSVG (9.13.3):
     - React
@@ -277,7 +277,7 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - boost-for-react-native
 
 EXTERNAL SOURCES:
@@ -383,10 +383,10 @@ SPEC CHECKSUMS:
   RNDeviceInfo: 017aa2fd29a437fba26807cbe2fa51a149da70cd
   RNGestureHandler: 911d3b110a7a233a34c4f800e7188a84b75319c6
   RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
-  RNScreens: 254da4b84f25971cbb30ed3ddc84131f23cac812
+  RNScreens: cf198f915f8a2bf163de94ca9f5bfc8d326c3706
   RNSVG: f6177f8d7c095fada7cfee2e4bb7388ba426064c
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
 PODFILE CHECKSUM: 283d79fe9f997cb2e4e5c3b30b4cfe5de474678b
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1
