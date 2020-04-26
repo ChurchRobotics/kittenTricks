@@ -6,6 +6,16 @@ let authorization: {
   accessToken: string,
 };
 
+async function loadAuthorization() {
+  const auth = await AppStorage.getAuthorization();
+  authorization = auth ? JSON.parse(auth) : {};
+}
+
+function saveAuthorization(): Promise<void> {
+  const auth = JSON.stringify(authorization);
+  return AppStorage.setAuthorization(auth);
+}
+
 export class TokenStore {
   static async getRefreshToken(): Promise<string> {
     if (!authorization) await loadAuthorization();
@@ -28,14 +38,4 @@ export class TokenStore {
     authorization.accessToken = token;
     await saveAuthorization();
   }
-}
-
-async function loadAuthorization() {
-  const auth = await AppStorage.getAuthorization();
-  authorization = auth ? JSON.parse(auth) : {};
-}
-
-function saveAuthorization(): Promise<void> {
-  const auth = JSON.stringify(authorization);
-  return AppStorage.setAuthorization(auth);
 }
