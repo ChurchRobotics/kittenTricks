@@ -4,8 +4,8 @@ import { setContext } from 'apollo-link-context';
 import { HttpLink } from 'apollo-link-http';
 import { TokenStore } from '../services/token.service';
 
-import { resolvers } from './resolvers';
 import { typeDefs } from './schema';
+import { resolvers } from './resolvers';
 
 export function createApolloClient({
   backend: backendUri,
