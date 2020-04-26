@@ -2,7 +2,7 @@ module.exports = {
   client: {
     includes: [
       './src/datagraph/**/*.{ts,tsx}',
-      './src/queries/**/*.{ts,tsx}',
+      './src/graphql/**/*.{ts,tsx}',
     ],
     service: {
       name: 'fullstack-tutorial',
