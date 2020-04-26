@@ -1,7 +1,7 @@
 module.exports = {
   client: {
     includes: [
-      './src/resolvers/**/*.{ts,tsx}',
+      './src/datagraph/**/*.{ts,tsx}',
       './src/queries/**/*.{ts,tsx}',
     ],
     service: {

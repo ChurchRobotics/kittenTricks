@@ -1,7 +1,7 @@
 import { ApolloCache } from 'apollo-cache';
 import { Resolvers } from 'apollo-client';
 
-import { GetCartItems, GET_CART_ITEMS } from '../queries/ecommerce/cart.query';
+import { GetCartItems, GET_CART_ITEMS } from '../../queries/ecommerce/cart.query';
 
 export const eCommerceResolvers: Resolvers = {
   Launch: {
