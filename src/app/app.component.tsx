@@ -13,7 +13,7 @@ import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
 import { TokenStore } from '../services/token.service';
-import { createApolloClient } from '../datasources';
+import { createApolloClient } from '../datasource';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 const loadingTasks: Task[] = [
