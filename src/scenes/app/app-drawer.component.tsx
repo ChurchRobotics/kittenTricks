@@ -12,12 +12,13 @@ import {
   MenuItemType,
   Text,
 } from '@ui-kitten/components';
-import { BookIcon, GithubIcon } from '../../components/icons';
+import { BookIcon, GithubIcon, PersonIcon } from '../../components/icons';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
 import { WebBrowserService } from '../../services/web-browser.service';
 import { AppInfoService } from '../../services/app-info.service';
 
 const DATA: MenuItemType[] = [
+  { title: 'Login/Signup', icon: PersonIcon },
   { title: 'Libraries', icon: GithubIcon },
   { title: 'Documentation', icon: BookIcon },
 ];
@@ -30,10 +31,15 @@ export const AppDrawer = ({ navigation }): DrawerElement => {
     switch (index) {
       case 0: {
         navigation.toggleDrawer();
-        navigation.navigate('Libraries');
+        navigation.navigate('Auth');
         return;
       }
       case 1: {
+        navigation.toggleDrawer();
+        navigation.navigate('Libraries');
+        return;
+      }
+      case 2: {
         WebBrowserService.openBrowserAsync('https://akveo.github.io/react-native-ui-kitten');
         navigation.toggleDrawer();
         return;
@@ -53,7 +59,7 @@ export const AppDrawer = ({ navigation }): DrawerElement => {
         <Text
           style={styles.profileName}
           category='h6'>
-          Kitten Tricks
+          Kameo App
         </Text>
       </View>
     </Layout>

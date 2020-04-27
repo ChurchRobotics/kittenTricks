@@ -12,6 +12,7 @@ import { TodayNavigator } from './today.navigator'
 import { WorkbenchNavigator } from './workbench.navigator';
 import { MessagingNavigator } from './messaging.navigator';
 import { MeNavigator } from './me.navigator';
+import { AuthNavigator } from './auth.navigator';
 import { AppBottomNavigation } from '../scenes/app/app-bottom-navigation.component';
 import { AppDrawer } from '../scenes/app/app-drawer.component';
 import { LibrariesScreen } from '../scenes/libraries/libraries.component';
@@ -47,26 +48,27 @@ const AppTabsNavigator = (): React.ReactElement => (
     screenOptions={TabBarVisibleOnRootScreenOptions}
     initialRouteName={initialTabRoute}
     tabBar={props => <AppBottomNavigation {...props} />}>
-    <BottomTab.Screen name='Store' component={StoreNavigator}/>
-    <BottomTab.Screen name='Today' component={TodayNavigator}/>
-    <BottomTab.Screen name='Workbench' component={WorkbenchNavigator}/>
-    <BottomTab.Screen name='Messaging' component={MessagingNavigator}/>
-    <BottomTab.Screen name='Me' component={MeNavigator}/>
+    <BottomTab.Screen name='Store' component={StoreNavigator} />
+    <BottomTab.Screen name='Today' component={TodayNavigator} />
+    <BottomTab.Screen name='Workbench' component={WorkbenchNavigator} />
+    <BottomTab.Screen name='Messaging' component={MessagingNavigator} />
+    <BottomTab.Screen name='Me' component={MeNavigator} />
   </BottomTab.Navigator>
 );
 
 const AppDrawerNavigator = (): React.ReactElement => (
   <Drawer.Navigator
     screenOptions={{ gestureEnabled: false }}
-    drawerContent={props => <AppDrawer {...props}/>}>
-    <Drawer.Screen name='Root' component={AppTabsNavigator}/>
-    <Drawer.Screen name='Libraries' component={LibrariesScreen}/>
+    drawerContent={props => <AppDrawer {...props} />}>
+    <Drawer.Screen name='Root' component={AppTabsNavigator} />
+    <Drawer.Screen name='Auth' component={AuthNavigator} />
+    <Drawer.Screen name='Libraries' component={LibrariesScreen} />
   </Drawer.Navigator>
 );
 
 export const AppNavigator = (): React.ReactElement => (
   <NavigationContainer theme={navigatorTheme}>
-    <AppDrawerNavigator/>
+    <AppDrawerNavigator />
   </NavigationContainer>
 );
 
